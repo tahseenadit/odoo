@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <record id="phone_directory_search_view" model="ir.ui.view">
+        <field name="name">phone_directory.search.view</field>
+        <field name="model">phone_directory.phonedirectory</field>
+        <field name="arch" type="xml">
+            <search string="Solution">
+                <field name="firstname" string="Everywhere" filter_domain="['|','|','|','|','|','|',('firstname','ilike',self),('lastname','ilike',self),('phone','ilike',self),('mobile','ilike',self),('company','ilike',self),('country','ilike',self),('city','ilike',self)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="phone_directory_list" model="ir.ui.view">
+        <field name="name">phone_directory.tree.view</field>
+        <field name="model">phone_directory.phonedirectory</field>
+        <field name= "arch" type = "xml">
+            <tree string="Phone Directory List">
+                <field name="firstname"/>
+                <field name="lastname"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+                <field name="company"/>
+                <field name="country"/>
+                <field name="city"/>
+                <field name="address"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="phone_directory_list_form_view" model="ir.ui.view">
+        <field name="name">phone_directory.form.view</field>
+        <field name="model">phone_directory.phonedirectory</field>
+        <field name="arch" type="xml">
+            <form string="Solution">
+                <sheet string="Solution">
+                    <h1>Create/Edit/Show Record</h1>
+                    <group>
+                        <field name="firstname"/>
+                        <field name="lastname"/>
+                    </group>
+                    <group>
+                        <field name="phone"/>
+                        <field name="mobile"/>
+                    </group>
+                    <group>
+                        <field name="company"/>
+                    </group>
+                    <group>
+                        <field name="country"/>
+                        <field name="city"/>
+                        <field name="address"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="open_phone_directory">
+        <field name="name">All Phone Numbers</field>
+        <field name="res_model">phone_directory.phonedirectory</field>
+        <!--<field name="view_type">tree</field>-->
+        <field name="view_mode">list,form</field>
+        <!--<field name="view_id" eval="False"/>-->
+        <field name="domain" eval=""/>
+        <field name="search_view_id" ref="phone_directory_search_view"/>
+        <field name="help" type="html">
+            <p>
+                Phone Directory Management allows you to efficiantly
+                manage your phone directory.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="show_all_phone_numbers"
+        name="Show All Numbers"
+        parent="phone_directory_left"
+        action="open_phone_directory"
+     />
+
+</odoo>

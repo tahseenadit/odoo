@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+    <menuitem
+            id="phone_directory_toplevel"
+            name="Phone Directory"
+         />
+    <menuitem
+        id="phone_directory_left"
+        name="Phone Directory Management"
+        parent="phone_directory_toplevel"
+     />
+
+
+</odoo>

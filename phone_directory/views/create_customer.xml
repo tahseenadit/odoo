@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<odoo>
+
+
+    <record id="phone_directory_create_customer_form" model="ir.ui.view">
+        <field name="name">create.customer.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name= "arch" type = "xml">
+            <field name="type" position="before">
+                <field name="fathername" />
+                <field name="mothername" />
+            </field>
+        </field>
+    </record>
+
+
+    <record model="ir.actions.act_window" id="create_customer">
+        <field name="name">Create Customer</field>
+        <field name="res_model">res.partner</field>
+        <!--<field name="view_type">tree</field>-->
+        <field name="view_mode">form,list</field>
+        <!--<field name="view_id" eval="False"/>-->
+        <field name="domain" eval=""/>
+        <!--<field name="search_view_id" ref="phone_directory_search_view"/>-->
+        <field name="help" type="html">
+            <p>
+                Phone Directory Management allows you to efficiantly
+                manage your phone directory.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="create_customer_page"
+        name="Create Customer"
+        parent="phone_directory_left"
+        action="create_customer"
+     />
+
+</odoo>
