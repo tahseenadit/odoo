@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<odoo>
+    <!--Adding id, phone and mobile in search-->
+    <record model="ir.ui.view" id="view_add_phone_mobile_in_search">
+        <field name="name">view.add.phone.mobile.in.search</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_leads_filter" />
+        <field name="arch" type="xml">
+            <xpath  expr="//search/field[@name='name']" position="after">
+                <field name="opportunity_seq_id"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+            </xpath>
+        </field>
+    </record>
+    <!--End of the section-->
+
+    <!--Adding '*' in phone, mobile, email in search-->
+    <record model="ir.ui.view" id="view_add_star_phone_mobile_in_form">
+        <field name="name">view.add.star.phone.mobile.in.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_leads" />
+        <field name="arch" type="xml">
+            <xpath expr="//group/field[@name='email_from']" position="attributes">
+                <attribute name="string">Email *</attribute>
+            </xpath>
+            <xpath expr="//group/field[@name='phone']" position="attributes">
+                <attribute name="string">Phone *</attribute>
+            </xpath>
+            <xpath expr="//group/field[@name='mobile']" position="attributes">
+                <attribute name="string">Mobile *</attribute>
+            </xpath>
+            <xpath expr="//group/field[@name='priority']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+    <!--End of the section-->
+
+
+    <!--Adding a button in opportunity for creating service request-->
+    <record model="ir.ui.view" id="view_add_button_in_opportunity">
+        <field name="name">view.add.button.in.opportunity</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
+        <field name="arch" type="xml">
+            <xpath  expr="//form/header/field[@name='stage_id']" position="before">
+                <field name="is_service_request_created" invisible="1"/>
+                <button
+                    name="action_create_new_service_request"
+                    string="Create Service Request"
+                    type="object"
+                    attrs="{'invisible': ['|', ('is_service_request_created', '=', True), ('probability', '&lt;', 100)]}"
+                />
+            </xpath>
+            <xpath  expr="//form/sheet/div/h1/field[@name='name']" position="before">
+                <p>
+                    <field name="opportunity_seq_id"/>
+                    <!--<field name="color"/>-->
+                </p>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!--Adding ID in leads and opportunity kanban view and removing priority-->
+    <record model="ir.ui.view" id="view_add_seq_id_and_remove_priority_from_opportunity_kanban">
+        <field name="name">view.add.seq.id.and.remove.priority.from.opportunity.kanban</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_kanban_view_leads" />
+        <field name="arch" type="xml">
+            <xpath  expr="//div/strong/field[@name='name']" position="before">
+                <p>
+                    <field name="opportunity_seq_id" readonly="1"/>
+                </p>
+            </xpath>
+            <!--Added service request number and status in kanban cards view-->
+            <xpath  expr="//div/div/field[@name='tag_ids']" position="after">
+                <p>
+                    <small>
+                        <field name="current_service_request_id" readonly="1"/>
+                        (<field name="current_service_request_status" readonly="1"/>)
+                    </small>
+                </p>
+            </xpath>
+            <!--Making invisible 'priority'-->
+            <xpath expr="//div/div/field[@name='priority']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!--Remove priority from opportunity form view-->
+    <record model="ir.ui.view" id="view_remove_priority_from_opportunity_form">
+        <field name="name">view.remove.priority.from.opportunity.form</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_oppor" />
+        <field name="arch" type="xml">
+            <!--Making invisible 'priority'-->
+            <xpath expr="//group/field[@name='priority']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!--crm_case_form_view_oppor-->
+
+    <!--Adding ID in leads and lead form view-->
+    <record model="ir.ui.view" id="view_add_seq_id_in_lead">
+        <field name="name">view.add.seq.id.in.opportunity</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_form_view_leads" />
+        <field name="arch" type="xml">
+            <xpath  expr="//sheet/div/h1//field[@name='name']" position="before">
+                <p>
+                    <field name="opportunity_seq_id" readonly="1"/>
+                </p>
+            </xpath>
+        </field>
+    </record>
+
+
+    <!--Adding filter in Opportunity with ID-->
+    <record model="ir.ui.view" id="view_add_opportunity_id_in_search">
+        <field name="name">view.add.opportunity.id.in.search</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.view_crm_case_opportunities_filter" />
+        <field name="arch" type="xml">
+            <xpath  expr="//search/field[@name='name']" position="after">
+                <field name="opportunity_seq_id"/>
+            </xpath>
+        </field>
+    </record>
+    <!--End of the section-->
+
+
+
+
+</odoo>
